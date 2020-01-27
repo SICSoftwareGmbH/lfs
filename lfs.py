@@ -118,6 +118,7 @@ def create_app(config_pyfile=None, config=None):
 
     @app.route('/<repo>/info/lfs/objects/batch', methods=['POST'])
     def batch(repo):
+        repo = re.sub(r'\.git$', r'', repo)
         req = flask.request.json
         lfs_repo = open_lfs(repo)
 
