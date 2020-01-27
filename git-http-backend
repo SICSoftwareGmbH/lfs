@@ -1,4 +1,8 @@
 #!/bin/bash
 set -e
 
+if [ -z "$REMOTE_USER" ]; then
+  export REMOTE_USER=$(echo $HTTP_AUTHORIZATION | sed "s/^Basic\s*//g" | base64 -d | sed "s/:.*//g")
+fi
+
 exec git http-backend
